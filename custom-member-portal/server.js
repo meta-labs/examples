@@ -26,6 +26,17 @@ app.use('/api', createProxyMiddleware({
   headers: { 'Meta-Labs-Account': config.account },
 }));
 
+app.get('/login', (req, res) => {
+  const loginUrl = new URL('https://discord.com/oauth2/authorize');
+  loginUrl.searchParams.append('response_type', 'code');
+  loginUrl.searchParams.append('redirect_uri', 'https://portal.vercel.app/api/auth/discord/callback');
+  loginUrl.searchParams.append('scope', 'identify email guilds.join');
+  loginUrl.searchParams.append('state', req.hostname);
+  loginUrl.searchParams.append('client_id', '648234176805470248');
+
+  res.redirect(loginUrl.href)
+});
+
 app.listen(port, (err) => {
   if (err) throw err;
   console.log(`> Ready on http://localhost:${port}`);
