@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Primary Meta Tags -->
+    <title>Meta Tags — Preview, Edit and Generate</title>
+    <meta name="title" content="Meta Tags — Preview, Edit and Generate">
+    <meta name="description" content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://metatags.io/">
+    <meta property="og:title" content="Meta Tags — Preview, Edit and Generate">
+    <meta property="og:description" content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!">
+    <meta property="og:image" content="https://metatags.io/assets/meta-tags-16a33a6a8531e519cc0936fbba0ad904e52d35f34a46c97a2c9f6f7dd7d336f2.png">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://metatags.io/">
+    <meta property="twitter:title" content="Meta Tags — Preview, Edit and Generate">
+    <meta property="twitter:description" content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!">
+    <meta property="twitter:image" content="https://metatags.io/assets/meta-tags-16a33a6a8531e519cc0936fbba0ad904e52d35f34a46c97a2c9f6f7dd7d336f2.png">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://js.stripe.com/v3/"></script>
+  </head>
+  <body class="d-flex flex-column min-vh-100" id="background">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid align-items-center">
+        <a class="navbar-brand" href="#">
+          <img id="nav-logo" alt="..." width="30" class="d-inline-block align-top mr-3">
+          <span id="nav-name" style="font-size: 18px; font-weight: 500;"></span>
+        </a>
+      </div>
+    </nav>
+    <div class="container-fluid d-flex flex-column flex-fill align-items-center justify-content-center">
+      <div class="row mx-2 mx-md-0">
+        <div class="card-purchase px-0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 col-md-6 d-flex border-end">
+                <div class="my-auto justify-content-center w-100">
+                  <div class="d-none d-md-block text-center">
+                    <img class="inline-block h-25 w-25 rounded-full mb-3 animate__animated animate__flipInX" id="logo">
+                      <h4 class="text-bold mb-3" id="name"></h4>
+                  </div>
+                  <p class="px-md-4 text-left text-md-center">
+                    You are about to claim a membership to Meta Labs.
+                  </p>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 px-md-5 py-md-4">
+                <form action="#">
+                  <div class="form-row">
+                    <div class="col-12 mb-2">
+                      <div class="form-group">
+                        <label for="email">Email address</label>
+                        <div class="input-group">
+                          <input autocomplete="off" name="email" id="email" placeholder="lebron@gmail.com" type="text" class="form-control form-control" value="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                      <div class="form-group">
+                        <label for="name">Full name</label>
+                        <div class="input-group">
+                          <input autocomplete="off" name="name" id="name" placeholder="Lebron James" type="text" class="form-control form-control" value="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group mb-3" id="card_input">
+                    <label for="name">Card information</label>
+                    <div id="card-element">
+                      <!-- A Stripe Element will be inserted here. -->
+                    </div>
+                  </div>
+                  <p>
+                    By clicking the button below, you agree to Meta Labs's
+                    <a href="#" target="_blank">Terms of Service</a> and
+                    <a href="#" target="_blank">Privacy Policy</a>.
+                  </p>
+                  <div class="d-grid">
+                    <button class="btn btn-dark" type="submit" id="purchase_button"></button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="text-center mb-4">
+      <span class="text-white"><a href="https://metalabs.io/" target="_blank" style="text-decoration: none; color: white;">Powered by Meta Labs</a></span>
+    </footer>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <!-- Meta Labs JS -->
+    <script src="js/main.js"></script>
+    <script src="js/release.js"></script>
+    <!-- Stripe -->
+    <script>
+      var stripe = Stripe('pk_test_lrWFthwGgG86aeOpSRkCfgf0')
+
+      var elements = stripe.elements();
+
+      // Custom styling can be passed to options when creating an Element.
+      // (Note that this demo uses a wider set of styles than the guide below.)
+      var style = {
+        base: {
+          color: '#32325d',
+          fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+          fontSmoothing: 'antialiased',
+          fontSize: '16px',
+          '::placeholder': {
+            color: '#B6C1D2'
+          }
+        },
+        invalid: {
+          color: '#fa755a',
+          iconColor: '#fa755a'
+        }
+      };
+
+      // Create an instance of the card Element.
+      var card = elements.create('card', {style: style});
+
+      // Add an instance of the card Element into the `card-element` <div>.
+      card.mount('#card-element');
+
+    </script>
+  </body>
+</html>
