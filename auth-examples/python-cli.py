@@ -68,3 +68,4 @@ if auth:
     log('Authorized.')
     time.sleep(1)
     log('Launching...')
+    # your stuff here

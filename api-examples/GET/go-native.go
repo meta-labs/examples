@@ -1,38 +1,36 @@
 package main
 
 import (
-	"fmt"
-	"strings"
-	"net/http"
-	"io/ioutil"
+    "bytes"
+    "fmt"
+    "io/ioutil"
+    "net/http"
 )
 
-func main() {
+func getLicense(apikey string, license string) string {
+    req, err := http.NewRequest("GET", fmt.Sprintf("https://api.metalabs.io/v4/licenses/%s", license), nil)
+    if err != nil {
+        log.Fatal(err)
+    }
 
-	url := "https://api.metalabs.io/v2/licenses/0000-0000-0000-0000"
-	method := "GET"
+    req.Header.Set("Authorization", "Bearer "+apikey)
+    client := &http.Client{}
+    resp, err := client.Do(req)
 
-	client := &http.Client {
-	}
-	req, err := http.NewRequest(method, url)
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer resp.Body.Close()
 
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	req.Header.Add("Authorization", "Basic pk_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+    if resp.StatusCode == 200 {
+        body, err := ioutil.ReadAll(resp.Body)
 
-	res, err := client.Do(req)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	defer res.Body.Close()
+        if err != nil {
+            log.Fatal(err)
+            }
 
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	fmt.Println(string(body))
+        return string(body)
+    }
+
+    return "Not Found"
 }
