@@ -1,15 +1,19 @@
-import json
 import requests
 
-headers = {
-    'Authorization': 'Basic pk_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-    'Content-Type': 'application/json'
-}
+def update_license(api_key, license_key, hardware_id:str):
+	headers = {
+		'Authorization': f'Bearer {api_key}',
+		'Content-Type': 'application/json'
+	}
 
-payload = {
-    'metadata': {
-        'key': 'value'
-    }
-}
+	payload = {
+		'metadata': {
+			'hwid': hardware_id
+		}
+	}
 
-requests.patch('https://api.metalabs.io/v2/licenses/0000-0000-0000-0000', headers=headers, data=json.dumps(payload))
+	req = requests.patch(f'https://api.metalabs.io/v4/licenses/{license_key}', headers=headers, json=payload)
+	if req.status_code == 200:
+		return True
+	else:
+		return 'Not Found'

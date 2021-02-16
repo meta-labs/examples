@@ -1,14 +1,11 @@
-var myHeaders = new Headers();
-myHeaders.append("Authorization", "Basic pk_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-
-var requestOptions = {
-	method: 'GET',
-	headers: myHeaders,
-	body: raw,
-	redirect: 'follow'
-};
-
-fetch("https://api.metalabs.io/v2/licenses/0000-0000-0000-0000", requestOptions)
-	.then(response => response.text())
-	.then(result => console.log(result))
-	.catch(error => console.log('error', error));
+async function retrieveLicense(key) {
+  try {
+    const license = await fetch(`https://api.metalabs.io/v4/licenses/${key}`, {
+      headers: {
+        'Authorization': 'Bearer API_KEY'
+      }
+    }).then(res => res.json());
+  } catch {
+    throw new Error('License not found')
+  }
+}

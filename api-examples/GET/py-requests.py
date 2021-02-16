@@ -1,8 +1,12 @@
 import requests
 
-headers = {
-    'Authorization': 'Basic pk_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-    'Content-Type': 'application/json'
-}
+def get_license(api_key, license_key):
+	headers = {
+		'Authorization': f'Bearer {api_key}'
+	}
 
-r = requests.get('https://api.metalabs.io/v2/licenses/0000-0000-0000-0000'.format(license), headers=headers)
+	req = requests.get(f'https://api.metalabs.io/v4/licenses/{license_key}', headers=headers)
+	if req.status_code == 200:
+		return req.json()
+	else:
+		return 'Not Found'
